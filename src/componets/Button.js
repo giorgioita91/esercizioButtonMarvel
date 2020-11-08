@@ -1,43 +1,52 @@
 import React from "react";
 
-// class Button extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-//   cambiaColore = () => {
-//     this.stile.backgroundColor = "green";
-//   };
-//   render() {
-//     return (
-//       <button onClick={this.cambiaColore} style={props.stile}>
-//         {props.description} {props.numero}
-//       </button>
-//     );
-//   }
-// }
+class Button extends React.Component {
+  constructor(props) {
+    super(props);
+    this.col = "yellow"; //colore default bottone
+    if (this.props.description === "likes")
+      this.col = "blue";
+    else this.col = "red";
+  }
+  cambiaColore = () => {
+    //toggle colore bottone
+    if (this.col === "blue" || this.col === "red" || this.col === "yellow") this.col = "green";
+    else if (this.props.description === "likes")
+      this.col = "blue"
+    else
+      this.col = "red"
+    this.forceUpdate();
+  }
+  mOver = () => {
+    //toggle colore bottone
+    if (this.col !== "green")
+      this.col = "yellow"
+    this.forceUpdate();
+  }
+  mOut = () => {
+    if (this.col === "yellow") {
+      if (this.props.description === "likes")
+        this.col = "blue"
+      else
+        this.col = "red"
+    }
+    this.forceUpdate();
+  }
 
-// const CambiaColore = (props) => {
-//     props.stile.backgroundColor = "green";
-// }
 
-function Button(props) {
-  // console.log(props.stile.backgroundColor);
-  return (
-    <button style={props.stile}>
-      {props.description} {props.numero}
-    </button>
-  ); //style={{backgroundColor:{props.stile}}}
+  render() {
+
+    return (
+
+      <button
+        style={{ backgroundColor: this.col }}
+        onClick={this.cambiaColore}
+        onMouseOver={this.mOver}
+        onMouseOut={this.mOut}>
+        {this.props.description} {this.props.numero}
+      </button>
+    );
+  }
 }
-
-// function CambiaColore(props) {
-//     return props.stile.backgroundColor = "green";
-
-// }
-// const btn = document.getElementById("btnColor");
-// console.log(btn);
-// btn.addEventListener("click", function (props) {
-//   console.log(props.stile.backgroundColor);
-//   return (props.stile.backgroundColor = "green");
-// });
 
 export default Button;
